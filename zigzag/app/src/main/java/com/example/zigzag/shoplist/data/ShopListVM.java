@@ -1,4 +1,6 @@
-package com.example.zigzag.shoplist;
+package com.example.zigzag.shoplist.data;
+
+import com.example.zigzag.shoplist.data.ShopListDTO;
 
 import java.io.Serializable;
 import java.util.List;

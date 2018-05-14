@@ -1,4 +1,4 @@
-package com.example.zigzag.shoplist;
+package com.example.zigzag.shoplist.data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,17 +9,17 @@ import java.io.Serializable;
  */
 
 public class ShopListDTO implements Serializable {
-	@SerializedName("0") private int score;
+	@SerializedName("0") private Integer score;
 	private String n;
 	private String u;
 	private String S;
 	private int[] A;
 
-	public int getScore() {
+	public Integer getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 
