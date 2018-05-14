@@ -5,14 +5,24 @@ package com.example.zigzag.shoplist;
  */
 
 public class ItemRecycler {
+    private String num;
     private String name;
     private String age;
     private String style;
 
-    public ItemRecycler(String name, String age, String style) {
+    public ItemRecycler(int num, String name, String age, String style) {
+        this.num = String.valueOf(num);
         this.name = name;
         this.age = age;
         this.style = style;
+    }
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
     }
 
     public String getName() {
