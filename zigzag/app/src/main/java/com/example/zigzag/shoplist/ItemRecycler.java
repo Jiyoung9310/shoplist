@@ -9,12 +9,14 @@ public class ItemRecycler {
     private String name;
     private String age;
     private String style;
+    private String img;
 
-    public ItemRecycler(int num, String name, String age, String style) {
+    public ItemRecycler(int num, String name, String age, String style, String img) {
         this.num = String.valueOf(num);
         this.name = name;
         this.age = age;
         this.style = style;
+        this.img = img;
     }
 
     public String getNum() {
@@ -47,5 +49,13 @@ public class ItemRecycler {
 
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

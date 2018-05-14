@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import java.util.ArrayList;
 
 public class ActMain extends AppCompatActivity {
@@ -17,6 +19,8 @@ public class ActMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
+
         setContentView(R.layout.act_main);
         mRecyclerView = (RecyclerView) findViewById(R.id.rvList);
 
@@ -39,7 +43,7 @@ public class ActMain extends AppCompatActivity {
             String name = "쇼핑몰 이름" + i;
             String age = "10대, 20대";
             String style = "유니크, 포멀";
-            ItemRecycler item = new ItemRecycler(i, name,  age, style);
+            ItemRecycler item = new ItemRecycler(i, name,  age, style, null/*이미지 url*/);
 
             testData.add(item);
         }

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import java.util.ArrayList;
 
 /**
@@ -33,6 +35,7 @@ public class AdpRecycler extends RecyclerView.Adapter<AdpRecycler.ItemViewHolder
         holder.mTvName.setText(mItems.get(position).getName());
         holder.mTvAge.setText(mItems.get(position).getAge());
         holder.mTvStyle.setText(mItems.get(position).getStyle());
+        holder.mIvProfile.setImageURI(mItems.get(position).getImg());
     }
 
     @Override
@@ -45,6 +48,7 @@ public class AdpRecycler extends RecyclerView.Adapter<AdpRecycler.ItemViewHolder
         private TextView mTvName;
         private TextView mTvAge;
         private TextView mTvStyle;
+        private SimpleDraweeView mIvProfile;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -52,6 +56,7 @@ public class AdpRecycler extends RecyclerView.Adapter<AdpRecycler.ItemViewHolder
             this.mTvName = (TextView) itemView.findViewById(R.id.tvName);
             this.mTvAge = (TextView) itemView.findViewById(R.id.tvAge);
             this.mTvStyle = (TextView) itemView.findViewById(R.id.tvStyle);
+            this.mIvProfile = (SimpleDraweeView) itemView.findViewById(R.id.ivImage);
         }
     }
 
