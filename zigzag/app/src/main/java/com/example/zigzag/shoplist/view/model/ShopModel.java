@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by user on 2018-05-14.
@@ -89,5 +91,47 @@ public class ShopModel {
 		}
 
 		return null;
+	}
+
+	public String getAgeGroup(int[] ageArray) {
+		String group = "";
+
+		boolean teen = false;
+		boolean twenty = false;
+		boolean thirty = false;
+
+		if(ageArray[0] == 1) {
+			teen = true;
+			group += "10대";
+		}
+
+		if(ageArray[1] + ageArray[2] + ageArray[3] > 0) {
+			twenty = true;
+			group += " 20대";
+		}
+
+		if(ageArray[4] + ageArray[5] + ageArray[6] > 0) {
+			thirty = true;
+			group += " 30대";
+		}
+
+		if(teen && twenty && thirty) {
+			group = "모두";
+		}
+
+		return group;
+	}
+
+	public String getImgUrl(String url) {
+		String regex = "^http://(w{3})*\\.*(.*?)[\\..*?]";
+		Pattern groupPattern = Pattern.compile(regex);
+		Matcher groupMatcher = groupPattern.matcher(url);
+		String imgURL = "https://cf.shop.s.zigzag.kr/images/";
+		if (groupMatcher.find()) {
+			imgURL += groupMatcher.group(2);
+			imgURL += ".jpg";
+		}
+
+		return imgURL;
 	}
 }

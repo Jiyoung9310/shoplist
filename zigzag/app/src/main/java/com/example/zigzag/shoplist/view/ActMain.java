@@ -52,7 +52,7 @@ public class ActMain extends AppCompatActivity implements Contract.ShopView {
         int i = 0;
         for(ShopListDTO shop : mData) {
             i++;
-            ItemRecycler item = new ItemRecycler(i, shop.getN(), shop.getA().toString(), shop.getS(), shop.getU());
+            ItemRecycler item = new ItemRecycler(i, shop.getN(), mShopModel.getAgeGroup(shop.getA()), shop.getS(), mShopModel.getImgUrl(shop.getU()));
             mShopList.add(item);
         }
         mAdapter.notifyDataSetChanged();
