@@ -23,8 +23,7 @@
             android:id="@+id/tvRankTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="dlwndml djJWrn"/>
+            android:layout_centerVertical="true"/>
 
         <Button
             android:id="@+id/btnFilter"

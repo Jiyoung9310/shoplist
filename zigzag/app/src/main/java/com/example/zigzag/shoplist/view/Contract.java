@@ -15,7 +15,6 @@ public interface Contract {
 
 		void setAdapterModel(RecyclerModel<ItemRecycler> adapterModel);
 
-		void loadList(int count);
 	}
 
 	interface ShopView {

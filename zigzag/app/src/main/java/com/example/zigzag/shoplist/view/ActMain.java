@@ -18,13 +18,15 @@ import com.example.zigzag.shoplist.view.model.ShopModel;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
-public class ActMain extends AppCompatActivity implements Contract.ShopView {
+public class ActMain extends AppCompatActivity {
 
 	ArrayList<ItemRecycler> testData = new ArrayList<>();
 	ArrayList<ItemRecycler> mShopList = new ArrayList<>();
-	ArrayList<String> mFilter = new ArrayList<>();
+	ArrayList<String> mFilterS = new ArrayList<>();
+	int[] mFilterA = new int[7];
 	AdpRecycler mAdapter;
 	Toolbar mToolbar;
 	RecyclerView mRecyclerView;
@@ -65,14 +67,12 @@ public class ActMain extends AppCompatActivity implements Contract.ShopView {
 		if(requestCode == 1234) {
 			if (resultCode == RESULT_OK) {
 				Bundle data = intent.getExtras();
-				mFilter = data != null ? data.getStringArrayList(ActFilter.RESULT_SELECTED_VALUE) : null;
-				if (mFilter != null) {
-					if (mFilter.isEmpty()) {
-						//모든 쇼핑몰 리스트
-						makeShopList();
-					} else {
-						changeShopList(mFilter);
-					}
+				mFilterA = data != null ? data.getIntArray(ActFilter.RESULT_SELECTED_VALUE_AGE) : null;
+				mFilterS = data != null ? data.getStringArrayList(ActFilter.RESULT_SELECTED_VALUE_STYLE) : null;
+				if (mFilterA != null || mFilterS != null) {
+					changeShopList(mFilterA, mFilterS);
+				} else {
+					makeShopList();
 				}
 			}
 		}
@@ -104,26 +104,60 @@ public class ActMain extends AppCompatActivity implements Contract.ShopView {
 
 	}
 
-	private void changeShopList(ArrayList<String> list) {
+	private ArrayList<ShopListDTO> setAgeFilter (int[] ageList) {
 		ArrayList<ShopListDTO> mData = mShopModel.getShopData();
-		mShopList.clear();
+		ArrayList<ShopListDTO> filterData = new ArrayList<>();
+
+		if(ageList != null) {
+			for (ShopListDTO shop : mData) {
+				int[] get = shop.getA();
+				for (int i = 0; i < ageList.length; i++) {
+					if (ageList[i] == 1 && get[i] == 1) {
+						filterData.add(shop);
+						break;
+					}
+				}
+			}
+		} else {
+			return mData;
+		}
+		return filterData;
+	}
+
+	private void setStyleFilter(ArrayList<ShopListDTO> filterData, ArrayList<String> typeList) {
 		int i = 0;
-		for (ShopListDTO shop : mData) {
-			for (String type : list) {
-				if (shop.getS().contains(type)) {
-					i++;
-					ItemRecycler item = new ItemRecycler(i, shop.getN(), mShopModel.getAgeGroup(shop.getA()), shop.getS(), mShopModel.getImgUrl(shop.getU()));
-					mShopList.add(item);
+		for (ShopListDTO shop : filterData) {
+			if(typeList.isEmpty()) {
+				i++;
+				ItemRecycler item = new ItemRecycler(i, shop.getN(), mShopModel.getAgeGroup(shop.getA()), shop.getS(), mShopModel.getImgUrl(shop.getU()));
+				mShopList.add(item);
+			} else {
+				for (String type : typeList) {
+					if (shop.getS().contains(type)) {
+						i++;
+						ItemRecycler item = new ItemRecycler(i, shop.getN(), mShopModel.getAgeGroup(shop.getA()), shop.getS(), mShopModel.getImgUrl(shop.getU()));
+						mShopList.add(item);
+					}
 				}
 			}
 		}
 		mAdapter.notifyDataSetChanged();
+	}
+
+	private void changeShopList(int[] ageList, ArrayList<String> typeList) {
+		mShopList.clear();
+
+		if (Arrays.equals(ageList, new int[]{0, 0, 0, 0, 0, 0, 0})) {
+			ageList = null;
+		}
+		setStyleFilter(setAgeFilter(ageList), typeList);
 
 	}
 
 	private void startFilterActivity() {
 		Intent intent = new Intent(this, ActFilter.class);
-		intent.putExtra(ActFilter.KEY_SELECTED_VALUE, mFilter);
+		intent.putExtra(ActFilter.KEY_SELECTED_VALUE_STYLE, mFilterS);
+		intent.putExtra(ActFilter.KEY_SELECTED_VALUE_AGE, mFilterA);
 		startActivityForResult(intent, 1234);
 	}
 

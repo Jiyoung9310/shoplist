@@ -17,16 +17,95 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#88999999">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="스타일"/>
+                android:textColor="#000000"
+                android:text="연령별"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <CheckBox
+                android:id="@+id/btn0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:tag="0"
+                android:text="10대"/>
+
+            <CheckBox
+                android:id="@+id/btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btn0"
+                android:tag="1"
+                android:text="20대 초반"/>
+
+            <CheckBox
+                android:id="@+id/btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btn1"
+                android:tag="2"
+                android:text="20대 중반"/>
+
+            <CheckBox
+                android:id="@+id/btn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btn2"
+                android:tag="3"
+                android:text="20대 후반"/>
+
+
+            <CheckBox
+                android:id="@+id/btn4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn0"
+                android:tag="4"
+                android:text="30대 초반"/>
+
+            <CheckBox
+                android:id="@+id/btn5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btn4"
+                android:layout_alignBottom="@id/btn4"
+                android:tag="5"
+                android:text="30대 중반"/>
+
+            <CheckBox
+                android:id="@+id/btn6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/btn5"
+                android:layout_alignBottom="@id/btn4"
+                android:tag="6"
+                android:text="30대 후반"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#88999999">
 
             <TextView
-                android:id="@+id/tvSelect"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="스타일"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -36,6 +115,8 @@
             android:orientation="vertical">
 
         </LinearLayout>
+
+
     </LinearLayout>
 
 </LinearLayout>
