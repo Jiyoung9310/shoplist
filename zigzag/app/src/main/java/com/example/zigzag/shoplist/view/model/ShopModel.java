@@ -5,14 +5,19 @@ import android.content.res.AssetManager;
 
 import com.example.zigzag.shoplist.data.ShopListDTO;
 import com.example.zigzag.shoplist.data.ShopListVM;
+import com.example.zigzag.shoplist.data.StyleTypeDB;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,8 +26,9 @@ import java.util.regex.Pattern;
  */
 
 public class ShopModel {
-	Context mContext;
-	ArrayList<ShopListDTO> mData;
+	private Context mContext;
+	private ArrayList<ShopListDTO> mData;
+	private String title = "";
 
 	public ShopModel(Context context) {
 		mContext = context;
@@ -36,6 +42,7 @@ public class ShopModel {
 	public ArrayList<ShopListDTO> getShopData() {
 		String jsonData = readJsonData("shop_list.json");
 		if (jsonData != null) {
+			title = parseJson(jsonData).getWeek();
 			mData = (ArrayList<ShopListDTO>) parseJson(jsonData).getList();
 
 			Collections.sort(mData, new Comparator<ShopListDTO>() {
@@ -44,9 +51,25 @@ public class ShopModel {
 					return t1.getScore().compareTo(shopListDTO.getScore());
 				}
 			});
+			saveStyleType();
 			return mData;
 		}
 		return null;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	private void saveStyleType() {
+		Set<String> styleSet = new HashSet<>();
+		for(ShopListDTO shop : mData) {
+			styleSet.addAll(Arrays.asList(shop.getS().split(",")));
+		}
+		List typeList = new ArrayList(styleSet);
+		Collections.sort(typeList);
+		StyleTypeDB.instance(mContext).saveStyleTypeData(typeList);
+
 	}
 
 	private String readJsonData(String fileName) {
@@ -134,4 +157,6 @@ public class ShopModel {
 
 		return imgURL;
 	}
+
+
 }
