@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.zigzag.shoplist.R;
 import com.example.zigzag.shoplist.adapter.AdpRecycler;
 import com.example.zigzag.shoplist.data.ShopListDTO;
+import com.example.zigzag.shoplist.view.model.ItemRecycler;
 import com.example.zigzag.shoplist.view.model.ShopModel;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -22,6 +23,8 @@ import java.util.Arrays;
 
 
 public class ActMain extends AppCompatActivity {
+
+	public static final int ACTFILTER_REQUEST_CODE = 1234;
 
 	ArrayList<ItemRecycler> testData = new ArrayList<>();
 	ArrayList<ItemRecycler> mShopList = new ArrayList<>();
@@ -33,7 +36,6 @@ public class ActMain extends AppCompatActivity {
 	Button mBtnFilter;
 	TextView mTvRankTitle;
 
-	ShopPresenter mPresenter;
 	ShopModel mShopModel;
 
 	@Override
@@ -55,7 +57,6 @@ public class ActMain extends AppCompatActivity {
 		});
 		mTvRankTitle = (TextView) findViewById(R.id.tvRankTitle);
 
-		mPresenter = new ShopPresenter();
 		mShopModel = new ShopModel(this);
 		UiInit();
 	}
@@ -64,7 +65,7 @@ public class ActMain extends AppCompatActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
-		if(requestCode == 1234) {
+		if(requestCode == ACTFILTER_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				Bundle data = intent.getExtras();
 				mFilterA = data != null ? data.getIntArray(ActFilter.RESULT_SELECTED_VALUE_AGE) : null;
@@ -80,10 +81,8 @@ public class ActMain extends AppCompatActivity {
 
 	private void UiInit() {
 		mAdapter = new AdpRecycler(mShopList);
-		mPresenter.setAdapterView(mAdapter);
 
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 		mRecyclerView.setAdapter(mAdapter);
 
 		//addTestData();
@@ -158,7 +157,7 @@ public class ActMain extends AppCompatActivity {
 		Intent intent = new Intent(this, ActFilter.class);
 		intent.putExtra(ActFilter.KEY_SELECTED_VALUE_STYLE, mFilterS);
 		intent.putExtra(ActFilter.KEY_SELECTED_VALUE_AGE, mFilterA);
-		startActivityForResult(intent, 1234);
+		startActivityForResult(intent, ACTFILTER_REQUEST_CODE);
 	}
 
 	private void addTestData() {

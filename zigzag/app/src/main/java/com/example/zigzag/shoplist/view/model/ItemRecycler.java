@@ -1,4 +1,4 @@
-package com.example.zigzag.shoplist.view;
+package com.example.zigzag.shoplist.view.model;
 
 /**
  * Created by XNOTE on 2018-05-13.

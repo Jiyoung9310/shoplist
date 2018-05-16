@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.zigzag.shoplist.view.ItemRecycler;
+import com.example.zigzag.shoplist.view.model.ItemRecycler;
 import com.example.zigzag.shoplist.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
